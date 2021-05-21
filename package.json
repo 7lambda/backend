@@ -12,6 +12,7 @@
     "databaseh": "heroku pg:psql -a bwfrontend",
     "seedh": "heroku run knex seed:run -a bwfrontend",
     "test": "cross-env NODE_ENV=testing jest --watchAll --verbose --runInBand",
+    "heroku-postbuild": "cd client && npm i && npm run build",
     "deploy": "git push heroku main"
   },
   "engines": {

@@ -1,19 +1,29 @@
-require('dotenv').config()
-
-const path = require('path')
 const express = require('express')
+const path = require('path')
+const server = express()
+const cors = require('cors')
 
-const server = require('./api/server')
+const port = process.env.PORT || 9000
 
-const port = process.env.PORT
+server.use(express.static(path.join(__dirname, 'client/build')))
+server.use(cors())
+server.use(express.json())
 
-server.use(express.static(path.join(__dirname, 'client/dist')))
-
-server.get('*', (req, res) => {
-  // if you want to serve a SPA using Express you totally can!
-  res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
+server.get('/api/*', (req,res)=>{
+    res.json({message: 'api is working'})
 })
 
-server.listen(port, () => {
-  console.log('listening on ' + port)
+server.use('*', (req,res)=>{
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'))
+})
+
+server.use((err, req, res, next) =>{
+    res.status(500).json({
+        message:err.message,
+        stack: err.stack
+    })
+})
+
+server.listen(port, ()=>{
+    console.log(`listening on ${port}`)
 })
