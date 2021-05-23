@@ -10,10 +10,6 @@ server.use(express.json())
 server.use(helmet())
 server.use(cors())
 
-server.get('/api/*', (req,res)=>{
-    res.json({message: 'api is working'})
-})
-
 server.use('/api/auth', Auth )
 
 server.use('*', (req,res)=>{
