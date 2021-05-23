@@ -3,6 +3,7 @@ const helmet = require('helmet')
 const cors = require('cors')
 const path = require('path')
 const server = express()
+const Auth = require('./Auth/auth-router')
 
 server.use(express.static(path.join(__dirname, '../client/build')))
 server.use(express.json())
@@ -12,6 +13,8 @@ server.use(cors())
 server.get('/api/*', (req,res)=>{
     res.json({message: 'api is working'})
 })
+
+server.use('/api/auth', Auth )
 
 server.use('*', (req,res)=>{
     res.sendFile(path.join(__dirname, '../client/build', 'index.html'))

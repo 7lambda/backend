@@ -1,7 +1,7 @@
 require('dotenv').config()
 const server = require('./api/server')
-const port = process.env.PORT || 9000
+const {PORT} = require('./api/Auth/secret')
 
-server.listen(port, ()=>{
-    console.log(`listening on ${port}`)
+server.listen(PORT, ()=>{
+    console.log(`listening on ${PORT}`)
 })
