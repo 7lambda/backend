@@ -8,7 +8,7 @@ server.use(express.static(path.join(__dirname, '../client/build')))
 server.use(cors())
 server.use(express.json())
 
-server.get('/api', (req,res)=>{
+server.get('/', (req,res)=>{
     res.json({message: 'api is working'})
 })
 server.use('/api/auth', authRouter);

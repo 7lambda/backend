@@ -1,7 +1,6 @@
 {
   "name": "build-week-scaffolding-node",
   "version": "1.0.0",
-  
   "scripts": {
     "start": "node index.js",
     "server": "nodemon index.js",
@@ -32,6 +31,7 @@
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.95.3",
     "knex-cleaner": "^1.3.1",
+    "path": "^0.12.7",
     "pg": "=8.5.1",
     "sqlite3": "^5.0.2",
     "yup": "^0.32.9"
