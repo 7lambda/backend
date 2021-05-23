@@ -1,6 +1,7 @@
 {
   "name": "build-week-scaffolding-node",
   "version": "1.0.0",
+  
   "scripts": {
     "start": "node index.js",
     "server": "nodemon index.js",
