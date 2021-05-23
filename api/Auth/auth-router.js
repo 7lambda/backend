@@ -14,6 +14,13 @@ router.post('/register', (req, res, next) => {
   .catch(next)
 });
 
+router.get('/getall', (req,res,next) =>{
+  Auth.getAll()
+  .then(data =>{
+    res.json(data)
+  })
+})
+
 router.post('/login', (req, res, next) => {
   const {username, password} = req.body
   Auth.findBy({username})
