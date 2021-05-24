@@ -7,6 +7,8 @@
     "migrate": "knex migrate:latest",
     "rollback": "knex migrate:rollback",
     "seed": "knex seed:run",
+    "up":"knex migrate:up",
+    "down":"knex migrate:down",
     "downh": "heroku run knex migrate:down -a theonewhoknocks",
     "uph": "heroku run knex migrate:up -a theonewhoknocks",
     "migrateh": "heroku run knex migrate:latest -a theonewhoknocks",

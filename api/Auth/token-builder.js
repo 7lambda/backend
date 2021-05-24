@@ -2,8 +2,12 @@ const jwt = require( 'jsonwebtoken')
 const {JWT_SECRET} = require('./secret')
 
 function tokenBuilder(user){
+    const { user_id, username, role_name } = user;
+    
     const payload = {
-        username: user.username
+        subject: user_id,
+        username,
+        role_name
     };
     const options = {
         expiresIn: '1d',
