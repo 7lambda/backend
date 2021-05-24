@@ -8,8 +8,16 @@ router.get('/getall', (req, res, next) => {
         })
         .catch(next)
 })
-router.get('/:user_id', (req, res, next) => {
-    Event.getById(req.params.user_id)
+router.get('/:user_id/user', (req, res, next) => {
+    Event.getByUserId(req.params.user_id)
+        .then(data => {
+            res.json(data)
+        })
+        .catch(next)
+})
+
+router.get('/:event_id/event', (req, res, next) => {
+    Event.getByEventId(req.params.event_id)
         .then(data => {
             res.json(data)
         })

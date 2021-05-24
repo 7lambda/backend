@@ -3,8 +3,11 @@ const db = require('../data/migrations/dbConfig')
 function getAll() {
     return db('events')
 }
-function getById(user_id) {
+function getByUserId(user_id) {
     return db('events').where({user_id})
+}
+function getByEventId(event_id) {
+    return db('events').where({event_id})
 }
 
 function insert(data) {
@@ -20,7 +23,8 @@ function nuked(event_id) {
 module.exports = {
     getAll,
     insert,
-    getById,
+    getByUserId,
+    getByEventId,
     updateevent,
     nuked
 }
