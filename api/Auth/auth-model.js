@@ -10,7 +10,7 @@ function findBy(filter) {
 }
 
  function Add(data) { // done for you
-    return db('users').insert(data,  ['user_id', 'username', 'role_name'])
+    return db('users').insert(data,  ['user_id', 'username', 'email'])
   }
 
   module.exports = {
