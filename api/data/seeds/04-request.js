@@ -1,6 +1,6 @@
 exports.seed = function (knex) {
 
-  return knex('attendee').insert([
+  return knex('request').insert([
     { event_id: 1, user_id: 1 },
     { event_id: 1, user_id: 2 },
     { event_id: 1, user_id: 3 },

@@ -25,23 +25,6 @@ exports.up = function (knex) {
       events.integer('max_attendee').notNullable();
       events.string('img_url')
     })
-    .createTable('attendee', attendee => {
-      attendee.increments('attend_id')
-      attendee.integer('event_id', 256)
-        .notNullable()
-        .unsigned()
-        .references('event_id')
-        .inTable('events')
-        .onDelete('RESTRICT')
-        .onUpdate('RESTRICT');
-      attendee.integer('user_id', 256)
-        .notNullable()
-        .unsigned()
-        .references('user_id')
-        .inTable('users')
-        .onDelete('RESTRICT')
-        .onUpdate('RESTRICT');
-    })
     .createTable('request', request => {
       request.increments('request_id')
       request.integer('user_id', 256)
@@ -60,7 +43,7 @@ exports.up = function (knex) {
     })
     .createTable('foods', foods => {
       foods.increments('food_id');
-      foods.string('food_name', 256).notNullable()
+      foods.string('food_name', 256)
       foods.integer('user_id', 256)
         .unsigned()
         .references('user_id')

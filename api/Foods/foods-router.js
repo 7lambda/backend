@@ -17,6 +17,15 @@ router.post('/', (req,res,next)=>{
     .catch(next)
 })
 
+router.post('/attendwithoutbringingFood', (req,res,next)=>{
+    Foods.comewithoutFood(req.body)
+    .then(data =>{
+        res.json(data)
+    })
+    .catch(next)
+})
+
+
 router.put('/:food_id', (req,res,next)=>{
     Foods.assignFoodToAttendee(req.params.food_id,req.body.user_id)
     .then(data =>{
