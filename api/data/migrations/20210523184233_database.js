@@ -8,7 +8,7 @@ exports.up = function (knex) {
     })
     .createTable('events', events => {
       events.increments('event_id');
-      events.string('event_name', 256).notNullable().unique();
+      events.string('event_name', 256).notNullable()
       events.string('date', 256).notNullable();
       events.string('time', 256).notNullable();
       events.string('state', 256).notNullable();
@@ -24,22 +24,6 @@ exports.up = function (knex) {
         .onUpdate('CASCADE');
       events.integer('max_attendee').notNullable();
       events.string('img_url')
-    })
-    .createTable('request', request => {
-      request.increments('request_id')
-      request.integer('user_id', 256)
-        .unsigned()
-        .references('user_id')
-        .inTable('users')
-        .onDelete('CASCADE')
-        .onUpdate('CASCADE');
-      request.integer('event_id', 256)
-        .notNullable()
-        .unsigned()
-        .references('event_id')
-        .inTable('events')
-        .onDelete('CASCADE')
-        .onUpdate('CASCADE');
     })
     .createTable('attendeeandfood', attendeeandfood => {
       attendeeandfood.increments('attendeeandfood_Id');
@@ -57,13 +41,13 @@ exports.up = function (knex) {
         .inTable('events')
         .onDelete('CASCADE')
         .onUpdate('CASCADE');
+      attendeeandfood.bool('is_attendings').defaultTo(false)
     })
 };
 
 exports.down = function (knex) {
-  return knex.schema.dropTableIfExists('foods')
-    .dropTableIfExists('request')
-    .dropTableIfExists('attendee')
+  return knex.schema.dropTableIfExists('attendeeandfood')
     .dropTableIfExists('events')
     .dropTableIfExists('users')
+
 };

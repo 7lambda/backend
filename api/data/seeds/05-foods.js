@@ -1,6 +1,6 @@
 exports.seed = function (knex) {
 
-  return knex('foods').insert([
+  return knex('attendeeandfood').insert([
     { event_id: 1, user_id: 1, food_name: "pizza" },
     { event_id: 1, user_id: 2, food_name: "pho" },
     { event_id: 1, user_id: 3, food_name: "salsa" },
