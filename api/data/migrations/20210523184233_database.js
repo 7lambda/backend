@@ -41,16 +41,16 @@ exports.up = function (knex) {
         .onDelete('CASCADE')
         .onUpdate('CASCADE');
     })
-    .createTable('foods', foods => {
-      foods.increments('food_id');
-      foods.string('food_name', 256)
-      foods.integer('user_id', 256)
+    .createTable('attendeeandfood', attendeeandfood => {
+      attendeeandfood.increments('attendeeandfood_Id');
+      attendeeandfood.string('food_name', 256)
+      attendeeandfood.integer('user_id', 256)
         .unsigned()
         .references('user_id')
         .inTable('users')
         .onDelete('CASCADE')
         .onUpdate('CASCADE');
-      foods.integer('event_id', 256)
+      attendeeandfood.integer('event_id', 256)
         .notNullable()
         .unsigned()
         .references('event_id')

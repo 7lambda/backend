@@ -1,8 +1,8 @@
 const router = require('express').Router()
 const Foods = require('./foods-model')
 
-router.get('/:event_id', (req,res,next) =>{
-    Foods.findFoodByEventId(req.params.event_id)
+router.get('/:attendeeandfood_Id', (req,res,next) =>{
+    Foods.findFoodByEventId(req.params.attendeeandfood_Id)
     .then(data =>{
         res.json(data)
     })
