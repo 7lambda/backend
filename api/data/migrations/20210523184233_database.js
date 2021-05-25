@@ -26,7 +26,7 @@ exports.up = function (knex) {
       events.string('img_url')
     })
     .createTable('attendee', attendee => {
-      attendee.increments('attendee_id')
+      attendee.increments('attend_id')
       attendee.integer('event_id', 256)
         .notNullable()
         .unsigned()
