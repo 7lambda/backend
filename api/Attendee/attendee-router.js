@@ -8,6 +8,13 @@ router.post('/', (req,res,next)=>{
     })
     .catch(next)
 })
+router.get('/:user_id', (req,res,next)=>{
+    Attendee.getAttendingByUserId(req.params.user_id)
+    .then(data =>{
+        res.json(data)
+    })
+    .catch(next)
+})
 
 router.get('/:event_id', (req,res,next)=>{
     Attendee.whosComming(req.params.event_id)

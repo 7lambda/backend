@@ -18,7 +18,6 @@ router.post('/', (req,res,next)=>{
 })
 
 router.put('/:food_id', (req,res,next)=>{
-    console.log(req.body.user_id)
     Foods.assignFoodToAttendee(req.params.food_id,req.body.user_id)
     .then(data =>{
         res.json(data)

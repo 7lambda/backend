@@ -6,11 +6,15 @@ function add(data) {
  function whosComming(event_id) {
     return db('attendee').where({event_id})
  }
+ function getAttendingByUserId(user_id) {
+    return db('attendee').where({user_id})
+ }
 function notComming(attend_id) {
     return db('attendee').where({attend_id}).del()
  }
 module.exports = {
     notComming,
     add,
-    whosComming
+    whosComming,
+    getAttendingByUserId
 }
