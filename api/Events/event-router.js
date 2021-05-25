@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const Event = require('./event-model')
+const checkOrganizeridmatchupdate = require('../middleware/checkOrganizeridmatchupdate')
 
 router.get('/getall', (req, res, next) => {
     Event.getAll()
@@ -24,15 +25,14 @@ router.get('/:event_id/event', (req, res, next) => {
         .catch(next)
 })
 
-router.put('/:event_id', (req, res, next) => {
-    console.log(req.params.event_id)
-    Event.updateevent(req.params.event_id,req.body)
+router.put('/:event_id', checkOrganizeridmatchupdate, (req, res, next) => {
+    Event.updateevent(req.params.event_id,req.body, req.decodedJwt.subject)
         .then(data => {
             res.json(...data)
         })
         .catch(next) 
 });
-router.delete('/:event_id', (req, res, next) => {
+router.delete('/:event_id', checkOrganizeridmatchupdate, (req, res, next) => {
     Event.nuked(req.params.event_id)
         .then(data => {
             res.json({message:`${data} event deleted`})

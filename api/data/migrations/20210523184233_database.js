@@ -20,8 +20,8 @@ exports.up = function (knex) {
         .unsigned()
         .references('user_id')
         .inTable('users')
-        .onDelete('RESTRICT')
-        .onUpdate('RESTRICT');
+        .onDelete('CASCADE')
+        .onUpdate('CASCADE');
       events.integer('max_attendee').notNullable();
       events.string('img_url')
     })
@@ -31,15 +31,15 @@ exports.up = function (knex) {
         .unsigned()
         .references('user_id')
         .inTable('users')
-        .onDelete('RESTRICT')
-        .onUpdate('RESTRICT');
+        .onDelete('CASCADE')
+        .onUpdate('CASCADE');
       request.integer('event_id', 256)
         .notNullable()
         .unsigned()
         .references('event_id')
         .inTable('events')
-        .onDelete('RESTRICT')
-        .onUpdate('RESTRICT');
+        .onDelete('CASCADE')
+        .onUpdate('CASCADE');
     })
     .createTable('foods', foods => {
       foods.increments('food_id');
@@ -48,15 +48,15 @@ exports.up = function (knex) {
         .unsigned()
         .references('user_id')
         .inTable('users')
-        .onDelete('RESTRICT')
-        .onUpdate('RESTRICT');
+        .onDelete('CASCADE')
+        .onUpdate('CASCADE');
       foods.integer('event_id', 256)
         .notNullable()
         .unsigned()
         .references('event_id')
         .inTable('events')
-        .onDelete('RESTRICT')
-        .onUpdate('RESTRICT');
+        .onDelete('CASCADE')
+        .onUpdate('CASCADE');
     })
 };
 
