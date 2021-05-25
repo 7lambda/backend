@@ -6,8 +6,8 @@ function add(data) {
  function whosComming(event_id) {
     return db('attendee').where({event_id})
  }
-function notComming(user_id) {
-    return db('attendee').where({user_id}).del()
+function notComming(attend_id) {
+    return db('attendee').where({attend_id}).del()
  }
 module.exports = {
     notComming,

@@ -18,7 +18,7 @@ router.get('/:event_id', (req,res,next)=>{
 })
 
 router.delete('/:attend_id', (req, res, next) => {
-    Attendee.notComming(req.params.user_id)
+    Attendee.notComming(req.params.attend_id)
         .then(data => {
             res.json({message:`${data} attendee deleted`})
         })
