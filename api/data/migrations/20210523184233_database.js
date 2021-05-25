@@ -24,9 +24,9 @@ exports.up = function (knex) {
         .onUpdate('RESTRICT');
       events.integer('max_attendee').notNullable();
       events.string('img_url')
-
     })
     .createTable('attendee', attendee => {
+      attendee.increments('attendee_id')
       attendee.integer('event_id', 256)
         .notNullable()
         .unsigned()
@@ -35,6 +35,7 @@ exports.up = function (knex) {
         .onDelete('RESTRICT')
         .onUpdate('RESTRICT');
       attendee.integer('user_id', 256)
+        .notNullable()
         .unsigned()
         .references('user_id')
         .inTable('users')
@@ -42,6 +43,7 @@ exports.up = function (knex) {
         .onUpdate('RESTRICT');
     })
     .createTable('request', request => {
+      request.increments('request_id')
       request.integer('user_id', 256)
         .unsigned()
         .references('user_id')
