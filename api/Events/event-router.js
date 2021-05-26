@@ -9,6 +9,7 @@ router.get('/getall', (req, res, next) => {
         })
         .catch(next)
 })
+
 router.get('/:user_id/user', (req, res, next) => {
     Event.getByUserId(req.params.user_id)
         .then(data => {
@@ -25,7 +26,7 @@ router.get('/:event_id/event', (req, res, next) => {
         .catch(next)
 })
 
-router.put('/:event_id', checkOrganizeridmatchupdate, (req, res, next) => {
+router.put('/:event_id',checkOrganizeridmatchupdate, (req, res, next) => {
     Event.updateevent(req.params.event_id,req.body, req.decodedJwt.subject)
         .then(data => {
             res.json(...data)

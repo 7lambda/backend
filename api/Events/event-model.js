@@ -15,7 +15,7 @@ function format(e){
         }
         users.push(newUser);
     }
-    //maps every user in event into one array
+
     if(data !== undefined){
         e.map(user=>{
             let newUser = {
@@ -50,41 +50,54 @@ function format(e){
     return formatted;
 }
 
-function getAll() {
-    return db('events as e')
-    .leftJoin("attendeeandfood as af", 'e.event_id','af.event_id')
-    .leftJoin('users as u', 'af.user_id', 'u.user_id')
-    .orderBy('e.event_id')
-    .then(data => {
-        //sets id to the first event id in the array
-        let id = data[0].event_id;
-        //2d array
-        let arr = []
-        //placeholder array
-        let eventArr = [];
-        //seperates every entry into the 2d array arr, every column corresponds to an event
-        data.map( (e, index) => {
-            if(e.event_id === id){
-                eventArr.push(e);
-            }
-            if(e.event_id !== id){
-                arr.push(eventArr);
-                eventArr = [];
-                eventArr.push(e);
-                id++;
-            }
-            if(index == data.length-1)
-            {
-                arr.push(eventArr);
-            }
+
+//  function getAll() {
+//     return db('events as e')
+//     .leftJoin("attendeeandfood as af", 'e.event_id','af.event_id')
+//     .leftJoin('users as u', 'af.user_id', 'u.user_id')
+//     .orderBy('e.event_id')
+//     .then(data => {
+//         //sets id to the first event id in the array
+//         let id = data[0].event_id;
+//         //2d array
+//         let arr = []
+//         //placeholder array
+//         let eventArr = [];
+//         //seperates every entry into the 2d array arr, every column corresponds to an event
+//         data.map( (e, index) => {
+//             if(e.event_id === id){
+//                 eventArr.push(e);
+//             }
+//             if(e.event_id !== id){
+//                 arr.push(eventArr);
+//                 eventArr = [];
+//                 eventArr.push(e);
+//                 id++;
+//             }
+//             if(index == data.length-1)
+//             {
+//                 arr.push(eventArr);
+//             }
+//         })
+//         let newdata = []
+//         arr.map(e => {
+//             newdata.push(format(e))
+//             })
+//         return newdata;
+//     })
+// }
+
+async function getAll() {
+    const events = await db('events')
+    const attendeeandfood = await db('attendeeandfood')
+    const data = await events.map(event =>{
+        event.attendees = attendeeandfood.filter(id =>
+            id.event_id === event.event_id)
+            return event
         })
-        let newdata = []
-        arr.map(e => {
-            newdata.push(format(e))
-            })
-        return newdata;
-    })
+        return data
 }
+
 function getByUserId(user_id) {
     return db('events as e')
     .leftJoin("attendeeandfood as af", 'e.event_id','af.event_id')

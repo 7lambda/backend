@@ -31,16 +31,12 @@ exports.up = function (knex) {
       attendeeandfood.integer('user_id', 256)
         .unsigned()
         .references('user_id')
-        .inTable('users')
-        .onDelete('CASCADE')
-        .onUpdate('CASCADE');
+        .inTable('users') 
       attendeeandfood.integer('event_id', 256)
         .notNullable()
         .unsigned()
         .references('event_id')
         .inTable('events')
-        .onDelete('CASCADE')
-        .onUpdate('CASCADE');
       attendeeandfood.bool('is_attendings').defaultTo(false)
     })
 };

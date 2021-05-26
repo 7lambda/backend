@@ -14,8 +14,8 @@ server.use(helmet())
 server.use(cors())
 
 server.use('/api/auth', Auth )
-server.use('/api/events',  Event )
-server.use('/api/attendeeandfood', attendeeandfood )
+server.use('/api/events',restricted , Event )
+server.use('/api/attendeeandfood',restricted, attendeeandfood)
 
 server.use('*', (req,res)=>{
     res.sendFile(path.join(__dirname, '../client/build', 'index.html'))

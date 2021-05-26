@@ -25,7 +25,6 @@ router.post('/attendwithoutbringingFood', (req,res,next)=>{
     .catch(next)
 })
 
-
 router.put('/:attendeeandfood_Id', (req,res,next)=>{
     let stuff = []
     stuff.attendeeandfood_Id = req.body.user_id
