@@ -7,8 +7,8 @@
     "migrate": "knex migrate:latest",
     "rollback": "knex migrate:rollback",
     "seed": "knex seed:run",
-    "up":"knex migrate:up",
-    "down":"knex migrate:down",
+    "up": "knex migrate:up",
+    "down": "knex migrate:down",
     "downh": "heroku run knex migrate:down -a theonewhoknocks",
     "uph": "heroku run knex migrate:up -a theonewhoknocks",
     "migrateh": "heroku run knex migrate:latest -a theonewhoknocks",
@@ -26,14 +26,15 @@
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "cors": "=2.8.5",
+    "cors": "^2.8.5",
     "dbconfig": "^1.1.7",
     "dotenv": "=8.2.0",
     "express": "^4.17.1",
-    "helmet": "=4.4.1",
+    "helmet": "^4.4.1",
     "jsonwebtoken": "^8.5.1",
-    "knex": "=0.95.3",
-    "knex-cleaner": "=1.3.1",
+    "knex": "^0.95.3",
+    "knex-cleaner": "^1.3.1",
+    "path": "^0.12.7",
     "pg": "=8.5.1",
     "sqlite3": "^5.0.2"
   },
@@ -42,7 +43,7 @@
     "cross-env": "=7.0.3",
     "eslint": "=7.22.0",
     "jest": "=26.6.0",
-    "nodemon": "=2.0.7",
+    "nodemon": "^2.0.7",
     "supertest": "=6.1.3"
   }
 }
