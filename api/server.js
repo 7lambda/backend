@@ -14,7 +14,7 @@ server.use(helmet())
 server.use(cors())
 
 server.use('/api/auth', Auth )
-server.use('/api/events', restricted,  Event )
+server.use('/api/events',  Event )
 server.use('/api/attendeeandfood', attendeeandfood )
 
 server.use('*', (req,res)=>{

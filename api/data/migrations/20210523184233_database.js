@@ -15,7 +15,7 @@ exports.up = function (knex) {
       events.string('city', 256).notNullable();
       events.string('street_address', 256).notNullable();
       events.integer('zip', 8).notNullable();
-      events.integer('user_id')
+      events.integer('organizer_id')
         .notNullable()
         .unsigned()
         .references('user_id')
