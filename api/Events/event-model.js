@@ -1,11 +1,11 @@
 const db = require('../data/migrations/dbConfig')
 
-function format(e){
+function format(e) {
 
     let data = e[0];
     let users = []
     //if e isnt an array runs this to put the 0-1 attendee in the object
-    if(data === undefined){
+    if (data === undefined) {
         let newUser = {
             user_id: e.user_id,
             username: e.username,
@@ -16,8 +16,8 @@ function format(e){
         users.push(newUser);
     }
 
-    if(data !== undefined){
-        e.map(user=>{
+    if (data !== undefined) {
+        e.map(user => {
             let newUser = {
                 user_id: user.user_id,
                 username: user.username,
@@ -28,7 +28,7 @@ function format(e){
             users.push(newUser);
         })
     }
-    if(data === undefined){
+    if (data === undefined) {
         data = e;
     }
     //builds final formatted object
@@ -46,92 +46,111 @@ function format(e){
         img_url: data.img_url,
         attendees: users
     }
-    
+
     return formatted;
 }
 
 
-//  function getAll() {
-//     return db('events as e')
-//     .leftJoin("attendeeandfood as af", 'e.event_id','af.event_id')
-//     .leftJoin('users as u', 'af.user_id', 'u.user_id')
-//     .orderBy('e.event_id')
-//     .then(data => {
-//         //sets id to the first event id in the array
-//         let id = data[0].event_id;
-//         //2d array
-//         let arr = []
-//         //placeholder array
-//         let eventArr = [];
-//         //seperates every entry into the 2d array arr, every column corresponds to an event
-//         data.map( (e, index) => {
-//             if(e.event_id === id){
-//                 eventArr.push(e);
-//             }
-//             if(e.event_id !== id){
-//                 arr.push(eventArr);
-//                 eventArr = [];
-//                 eventArr.push(e);
-//                 id++;
-//             }
-//             if(index == data.length-1)
-//             {
-//                 arr.push(eventArr);
-//             }
-//         })
-//         let newdata = []
-//         arr.map(e => {
-//             newdata.push(format(e))
-//             })
-//         return newdata;
-//     })
-// }
-
-async function getAll() {
-    const events = await db('events')
-    const attendeeandfood = await db('attendeeandfood')
-    const data = await events.map(event =>{
-        event.attendees = attendeeandfood.filter(id =>
-            id.event_id === event.event_id)
-            return event
+ function getAll() {
+    return db('events as e')
+    .leftJoin("attendeeandfood as af", 'e.event_id','af.event_id')
+    .leftJoin('users as u', 'af.user_id', 'u.user_id')
+    .columns([
+        'e.event_id',
+        'e.event_name',
+        'e.date',
+        'e.time',
+        'e.state',
+        'e.city',
+        'e.street_address',
+        'e.zip',
+        'e.organizer_id',
+        'e.max_attendee',
+        'e.img_url',
+        'af.user_id',
+        'af.attendeeandfood_Id',
+        'u.username',
+        'af.food_name',
+        'af.is_attendings'
+        ])
+    .orderBy('e.event_id')
+    .then(data => {
+        //sets id to the first event id in the array
+        let id = data[0].event_id;
+        //2d array
+        let arr = []
+        //placeholder array
+        let eventArr = [];
+        //seperates every entry into the 2d array arr, every column corresponds to an event
+        data.map( (e, index) => {
+            if(e.event_id === id){
+                eventArr.push(e);
+            }
+            if(e.event_id !== id){
+                arr.push(eventArr);
+                eventArr = [];
+                eventArr.push(e);
+                id++;
+            }
+            if(index == data.length-1)
+            {
+                arr.push(eventArr);
+            }
         })
-        return data
+        let newdata = []
+        arr.map(e => {
+            newdata.push(format(e))
+            })
+        return newdata;
+    })
 }
+
+// async function getAll() {
+//     const events = await db('events')
+//     const attendeeandfood = await db('attendeeandfood')
+//     const data = await events.map(event => {
+//         event.attendees = attendeeandfood.filter(id =>
+//             id.event_id === event.event_id)
+//         return event
+//     })
+//     return data
+// }
 
 function getByUserId(user_id) {
     return db('events as e')
-    .leftJoin("attendeeandfood as af", 'e.event_id','af.event_id')
-    .leftJoin('users as u', 'af.user_id', 'u.user_id')
-    .where("u.{user_id}", user_id)
-    .then(data => {return format(data);})
-    
+        .leftJoin("attendeeandfood as af", 'e.event_id', 'af.event_id')
+        .leftJoin('users as u', 'af.user_id', 'u.user_id')
+        .where("u.{user_id}", user_id)
+        .then(data => { return format(data); })
+
 }
 function getByEventId(event_id) {
     return db('events as e')
-    .leftJoin("attendeeandfood as af", 'e.event_id','af.event_id')
-    .leftJoin('users as u', 'af.user_id', 'u.user_id')
-    .where("e.event_id",event_id)
-    .then(data => {
-        console.log(data)
-        return format(data);})
+        .leftJoin("attendeeandfood as af", 'e.event_id', 'af.event_id')
+        .leftJoin('users as u', 'af.user_id', 'u.user_id')
+        .where("e.event_id", event_id)
+        .then(data => {
+            console.log(data)
+            return format(data);
+        })
 }
 
 function insert(data) {
     return db('events').insert(data, ['*'])
 }
 function updateevent(event_id, data) {
-    return db('events').where({event_id}).update(data, ['*'])
+    return db('events').where({ event_id }).update(data, ['*'])
 }
 
-async function UserIdwithEventId (event_id){
+async function UserIdwithEventId(event_id) {
     console.log(event_id)
-    const data = await db('events').where({event_id}).first()
+    const data = await db('events').where({ event_id }).first()
     return data.user_id
 }
 
 
 function nuked(event_id) {
-   return db('events').where({event_id}).del()
+    return db('events').where({ event_id }).del()
 }
 
 module.exports = {
