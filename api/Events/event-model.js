@@ -1,8 +1,10 @@
 const db = require('../data/migrations/dbConfig')
 
 function format(e){
+
     let data = e[0];
     let users = []
+    //if e isnt an array runs this to put the 0-1 attendee in the object
     if(data === undefined){
         let newUser = {
             user_id: e.user_id,
@@ -13,6 +15,7 @@ function format(e){
         }
         users.push(newUser);
     }
+    //maps every user in event into one array
     if(data !== undefined){
         e.map(user=>{
             let newUser = {
@@ -28,6 +31,7 @@ function format(e){
     if(data === undefined){
         data = e;
     }
+    //builds final formatted object
     let formatted = {
         event_id: data.event_id,
         event_name: data.event_name,
@@ -43,7 +47,6 @@ function format(e){
         attendees: users
     }
     
-
     return formatted;
 }
 
@@ -51,12 +54,16 @@ function getAll() {
     return db('events as e')
     .leftJoin("attendeeandfood as af", 'e.event_id','af.event_id')
     .leftJoin('users as u', 'af.user_id', 'u.user_id')
+    .orderBy('e.event_id')
     .then(data => {
-        console.log(data)
+        //sets id to the first event id in the array
         let id = data[0].event_id;
+        //2d array
         let arr = []
+        //placeholder array
         let eventArr = [];
-        data.map(e => {
+        //seperates every entry into the 2d array arr, every column corresponds to an event
+        data.map( (e, index) => {
             if(e.event_id === id){
                 eventArr.push(e);
             }
@@ -66,8 +73,11 @@ function getAll() {
                 eventArr.push(e);
                 id++;
             }
+            if(index == data.length-1)
+            {
+                arr.push(eventArr);
+            }
         })
-        console.log(arr)
         let newdata = []
         arr.map(e => {
             newdata.push(format(e))
