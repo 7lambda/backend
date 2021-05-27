@@ -131,7 +131,7 @@ function getByUserId(organizer_id) {
 function getByEventId(event_id) {
     return db('events as e')
         .leftJoin("attendeeandfood as af", 'e.event_id', 'af.event_id')
-        .leftJoin('users as u', 'af.organizer_id', 'u.user_id')
+        .leftJoin('users as u', 'af.user_id', 'u.user_id')
         .where("e.event_id", event_id)
         .then(data => {
             console.log(data)
