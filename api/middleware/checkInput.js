@@ -38,7 +38,7 @@ const checkcreateEvent = async (req, res, next) => {
         req.body = validate
         next()
     } catch (err) {
-        next({ status: 400, message: `${err.path} is missing` })
+        res.status(400).json({message: `${err.path} is missing` })
     }
 }
 
@@ -48,7 +48,7 @@ const checkupdateEvent = async (req, res, next) => {
         req.body = validate
         next()
     } catch (err) {
-        next({ status: 400, message: `${err.path} is missing` })
+        res.status(400).json({message: `${err.path} is missing` })
     }
 }
 
@@ -58,7 +58,7 @@ const checkCreateAccount = async (req, res, next) => {
         req.body = validate
         next()
     } catch (err) {
-        next({ status: 400, message:err.message })
+        res.status(400).json({message: err.message })
     }
 }
 
