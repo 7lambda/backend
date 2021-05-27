@@ -88,7 +88,7 @@ function format(e) {
             }
             if(e.event_id !== id){
                 arr.push(eventArr);
-                eventArr = [];
+                eventArr = []
                 eventArr.push(e);
                 id++;
             }
@@ -150,7 +150,7 @@ function updateevent(event_id, data) {
 async function UserIdwithEventId(event_id) {
     console.log(event_id)
     const data = await db('events').where({ event_id }).first()
-    return data.user_id
+    return data.organizer_id
 }
 
 

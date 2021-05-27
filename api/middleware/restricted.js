@@ -5,13 +5,13 @@ module.exports = (req, res, next) => {
   if(token) {
     jwt.verify(token, JWT_SECRET, (err, decoded)=>{
       if (err) {
-        next({status: 401, message: 'token invalid'})
+        next({status: 401, message: "you're not authorize to do that"})
       } else {
         req.decodedJwt = decoded
         next()
       }
     })
   } else {
-    next({status: 401, message: 'token required'})
+    next({status: 401, message: 'please login'})
   }
 };

@@ -21,7 +21,6 @@ server.use('*', (req,res)=>{
     res.sendFile(path.join(__dirname, '../client/build', 'index.html'))
 })
 
-
 server.use((err, req, res, next) =>{
     res.status(500).json({
         message:err.message,
