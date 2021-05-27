@@ -23,7 +23,7 @@ const update = yup.object({
     street_address: yup.string().required(),
     zip: yup.number().required().required(),
     max_attendee: yup.number().required(),
-    img_url: yup.string(),
+    // img_url: yup.string(),
 })
 
 const registerCheck = yup.object({
@@ -44,9 +44,11 @@ const checkcreateEvent = async (req, res, next) => {
 
 const checkupdateEvent = async (req, res, next) => {
     try {
+        
         const validate = await update.validate(req.body, { stripUnknown: true })
         req.body = validate
         next()
+        console.log("in the check updated event ")
     } catch (err) {
         res.status(400).json({message: `${err.path} is missing` })
     }

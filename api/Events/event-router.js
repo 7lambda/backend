@@ -28,6 +28,7 @@ router.get('/:event_id/event', (req, res, next) => {
 })
 
 router.put('/:event_id',checkOrganizeridmatchupdate, checkupdateEvent, (req, res, next) => {
+    console.log("in the function about to go to node")
     Event.updateevent(req.params.event_id,req.body, req.decodedJwt.subject)
         .then(data => {
             res.json(...data)
