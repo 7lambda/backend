@@ -30,7 +30,7 @@ router.post('/login', (req, res, next) => {
       const token = buildToken(user)
       res.status(200).json({
         user_id:user.user_id,
-        message: `${user.username} is back`,
+        username: user.username,
         token
       })
     } else {
