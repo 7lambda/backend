@@ -66,7 +66,7 @@ const checkUsernameUnique = async (req, res, next) => {
     Auth.getByUsername(req.body.username)
       .then(data => {
         if (data) {
-          next({ status: 400, message: `username ${req.body.username} is taken :(` })
+          res.status(400).json({message:`username ${req.body.username} is taken`})
         } else {
           next()
         }
