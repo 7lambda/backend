@@ -51,73 +51,73 @@ function format(e) {
 }
 
 
-//  function getAll() {
-//     return db('events as e')
-//     .leftJoin("attendeeandfood as af", 'e.event_id','af.event_id')
-//     .leftJoin('users as u', 'af.user_id', 'u.user_id')
-//     .columns([
-//         'e.event_id',
-//         'e.event_name',
-//         'e.date',
-//         'e.time',
-//         'e.state',
-//         'e.city',
-//         'e.street_address',
-//         'e.zip',
-//         'e.organizer_id',
-//         'e.max_attendee',
-//         'e.img_url',
-//         'af.user_id',
-//         'af.attendeeandfood_Id',
-//         'u.username',
-//         'af.food_name',
-//         'af.is_attendings'
-//         ])
-//     .orderBy('e.event_id')
-//     .then(data => {
-//         //sets id to the first event id in the array
-//         let id = data[0].event_id;
-//         //2d array
-//         let arr = []
-//         //placeholder array
-//         let eventArr = [];
-//         //seperates every entry into the 2d array arr, every column corresponds to an event
-//         data.map( (e, index) => {
-//             if(e.event_id === id){
-//                 eventArr.push(e);
-//             }
-//             if(e.event_id !== id){
-//                 arr.push(eventArr);
-//                 eventArr = []
-//                 eventArr.push(e);
-//                 id++;
-//             }
-//             if(index == data.length-1)
-//             {
-//                 arr.push(eventArr);
-//             }
-//         })
-//         let newdata = []
-//         arr.map(e => {
-//             newdata.push(format(e))
-//             })
-//         return newdata;
-//     })
-// }
-
-function getAll() {
-    const events = db('events')
-    const attendeeandfood = db('attendeeandfood')
-    return Promise.all([events, attendeeandfood])
-    .then(([events,attendeeandfood])=>{
-        const data = events.map(event => {
-            event.attendees = attendeeandfood.filter(id =>
-                id.event_id === event.event_id)
-            return event
+ function getAll() {
+    return db('events as e')
+    .leftJoin("attendeeandfood as af", 'e.event_id','af.event_id')
+    .leftJoin('users as u', 'af.user_id', 'u.user_id')
+    .columns([
+        'e.event_id',
+        'e.event_name',
+        'e.date',
+        'e.time',
+        'e.state',
+        'e.city',
+        'e.street_address',
+        'e.zip',
+        'e.organizer_id',
+        'e.max_attendee',
+        'e.img_url',
+        'af.user_id',
+        'af.attendeeandfood_Id',
+        'u.username',
+        'af.food_name',
+        'af.is_attendings'
+        ])
+    .orderBy('e.event_id')
+    .then(data => {
+        //sets id to the first event id in the array
+        let id = data[0].event_id;
+        //2d array
+        let arr = []
+        //placeholder array
+        let eventArr = [];
+        //seperates every entry into the 2d array arr, every column corresponds to an event
+        data.map( (e, index) => {
+            if(e.event_id === id){
+                eventArr.push(e);
+            }
+            if(e.event_id !== id){
+                arr.push(eventArr);
+                eventArr = []
+                eventArr.push(e);
+                id++;
+            }
+            if(index == data.length-1)
+            {
+                arr.push(eventArr);
+            }
         })
-        return data
+        let newdata = []
+        arr.map(e => {
+            newdata.push(format(e))
+            })
+        return newdata;
     })
 }
+
+// function getAll() {
+//     const events = db('events')
+//     const attendeeandfood = db('attendeeandfood')
+//     return Promise.all([events, attendeeandfood])
+//     .then(([events,attendeeandfood])=>{
+//         const data = events.map(event => {
+//             event.attendees = attendeeandfood.filter(id =>
+//                 id.event_id === event.event_id)
+//             return event
+//         })
+//         return data
+//     })
+// }
 
 // async function getAll() {
 //     const events = await db('events as e').join('attendeeandfood as af', 'e.event_id', 'af.event_id')
