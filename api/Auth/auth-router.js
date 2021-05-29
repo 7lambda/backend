@@ -22,6 +22,10 @@ router.get('/getall', (req,res,next) =>{
   })
 })
 
+app.get('/heroku',(req,res) => {
+  return res.send('Hello');
+  });
+
 router.post('/login', (req, res, next) => {
   const {username, password} = req.body
   Auth.findBy({username})
