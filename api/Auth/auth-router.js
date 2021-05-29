@@ -22,7 +22,7 @@ router.get('/getall', (req,res,next) =>{
   })
 })
 
-app.get('/heroku',(req,res) => {
+router.get('/heroku',(req,res) => {
   return res.send('Hello');
   });
 
