@@ -7,6 +7,7 @@ const Auth = require('./Auth/auth-router')
 const Event = require('./Events/event-router')
 const attendeeandfood = require('./attendeeandfood/attendeeandfood-router')
 const restricted = require('./middleware/restricted')
+const Ping = require('./Ping')
 
 server.use(express.static(path.join(__dirname, '../client/build')))
 server.use(express.json())
@@ -16,6 +17,8 @@ server.use(cors())
 server.use('/api/auth', Auth )
 server.use('/api/events',restricted , Event )
 server.use('/api/attendeeandfood',restricted, attendeeandfood)
+// server.use(Ping)
+
 
 server.use('*', (req,res)=>{
     res.sendFile(path.join(__dirname, '../client/build', 'index.html'))
