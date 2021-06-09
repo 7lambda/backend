@@ -6,4 +6,4 @@ const pingit =()=>{
     })
 }
 
-setInterval(()=> console.log("hello"), 1680000)
+setInterval(()=> pingit(), 1680000)
