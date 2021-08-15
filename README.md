@@ -1,1 +1,1 @@
-https://dashboard.heroku.com/apps/theonewhoknocks
+https://theonewhoknocks.herokuapp.com
